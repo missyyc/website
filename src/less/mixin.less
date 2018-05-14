@@ -1,0 +1,30 @@
+@paddingLeft: 47px;
+@borderRadius: 8px;
+@h4MarginBottom: 30px;
+@musicToolBarHeight: 68px;
+
+.fontSize(@fontSize) {
+	font-size: round(@fontSize / 2) * 1px;
+	[data-dpr = "2"] & {
+		font-size: @fontSize * 1px;
+	}
+	[data-dpr = "3"] & {
+		font-size: round(@fontSize / 2 * 3) * 1px;
+	}
+	[data-dpr = "4"] & {
+		font-size: round(@fontSize * 2) * 1px;
+	}
+}
+
+.iconSearch {
+	background-image: url("../../static/search.svg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.h4-font {
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
