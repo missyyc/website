@@ -116,7 +116,6 @@ export default {
 
     watch: {
         isPlayed (newIsPlayed, oldIsPlayed) {
-            console.log('================>', newIsPlayed, oldIsPlayed )
             if (newIsPlayed) {
                 this.initPlay()
             }
