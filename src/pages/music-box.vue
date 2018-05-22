@@ -17,86 +17,37 @@
                     <SearchIcon class="icon" />
                     <input type="text" placeholder="搜索歌曲">
                 </div>
-                <div class="albums">
-                    <h4>专辑歌曲</h4>
-                    <div class="albums-list">
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>废烟</h5>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>扎心三连</h5>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>扎心十连</h5>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>废烟</h5>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>废烟</h5>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>废烟</h5>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-item-cover">
-                                <img src="../../static/img/home-bg.png" alt="">
-                            </div>
-                            <h5>废烟</h5>
-                        </div>
-                    </div>
-                </div>
+                
+                <albums-list></albums-list>
 
                 <div class="audio-content">
                     <songs-list></songs-list>
-                    <div class="dayliveaudios">
-                        <h4>每日直播音频</h4>
-
-                        <div class="dayliveaudios-list">
-                            <div class="dayliveaudios-list-item">
-                                <img src="../../static/img/love.png" alt="">
-                            </div>
-                            <div class="dayliveaudios-list-item">
-                                <img src="../../static/img/love.png" alt="">
-                            </div>
-                            <div class="dayliveaudios-list-item">
-                                <img src="../../static/img/love.png" alt="">
-                            </div>
-                            <div class="dayliveaudios-list-item">
-                                <img src="../../static/img/love.png" alt="">
-                            </div>
-                        </div>
-                    </div>
+                    <live-audio></live-audio>
                 </div>
 
+                <keep-alive>
+                  <album-detail v-if="showAlbumDetail"></album-detail>
+                </keep-alive>
+
+                <keep-alive>
+                  <audio-detail v-if="showAudioDetail"></audio-detail>
+                </keep-alive>
         </div>
         
-        <music-toolbar></music-toolbar>
+        <music-toolbar v-if="canPlayed"></music-toolbar>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
 import SearchIcon from "../../static/img/search.svg";
 import MusicToolbar from '../components/music-toolbar.vue';
 import SongsList from '../components/songs-list.vue';
+import AlbumsList from '../components/albums-list.vue';
+import LiveAudio from '../components/live-audio.vue';
+import AlbumDetail from '../components/album-detail.vue';
+import AudioDetail from '../components/audio-detail.vue';
 
 export default {
   name: "music-box",
@@ -104,11 +55,24 @@ export default {
     SearchIcon,
     MusicToolbar,
     SongsList,
+    AlbumsList,
+    LiveAudio,
+    AlbumDetail,
+    AudioDetail,
   },
   data() {
     return {};
   },
-  computed: {}
+  computed: {
+    ...mapState([
+      'canPlayed',
+      'showAudioDetail',
+      'showAlbumDetail'
+    ])
+  },
+  methods: {
+    
+  }
 };
 </script>
 
@@ -117,7 +81,6 @@ export default {
 @import (reference) "../less/mixin.less";
 
 @paddingLeft: 47px;
-@borderRadius: 8px;
 @h4MarginBottom: 30px;
 
 .music-box {
@@ -188,6 +151,7 @@ export default {
   }
 
   .content {
+    position: relative;
     width: 984px;
     height: 100%;
     padding-bottom: @musicToolBarHeight;
@@ -203,76 +167,9 @@ export default {
       }
     }
 
-    .albums {
-      h4 {
-        .h4-font;
-        margin-bottom: @h4MarginBottom;
-      }
-      .albums-list {
-        display: flex;
-        width: 100%;
-        overflow-x: scroll;
-        flex-direction: row;
-        margin-bottom: 50px;
-
-        .album-item {
-          margin-right: 34px;
-          text-align: center;
-          .album-item-cover {
-            width: 140px;
-            height: 140px;
-            cursor: pointer;
-            border-radius: @borderRadius;
-            box-shadow: 0 2px 30px -6px #777;
-
-            img {
-                width: 100%;
-                height: 100%;
-                border-radius: @borderRadius;
-                object-fit: cover;
-            }
-          }
-          h5 {
-            font-size: 14px;
-            margin-top: 16px;
-            letter-spacing: 2px;
-          }
-        }
-      }
-    }
-
     .audio-content {
         display: flex;
         justify-content: flex-start;
-    }
-
-    .dayliveaudios {
-        width: 380px;
-        margin-left: 30px;
-        h4 {
-            .h4-font;
-            margin-bottom: @h4MarginBottom;
-        }
-        .dayliveaudios-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-
-            .dayliveaudios-list-item {
-                margin-right: 23px;
-                margin-bottom: 23px;
-                width: 154px;
-                height: 95px;
-                border-radius: @borderRadius;;
-                box-shadow: 0 2px 30px -6px #777;
-                
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-        }
     }
   }
 }
@@ -282,15 +179,6 @@ export default {
   width: 6px;
   height: 6px;
   background: url("../../static/img/search.svg") top center no-repeat fixed;
-}
-
-.icon {
-  display: inline-block;
-  font-size: 0;
-  width: 16px;
-  height: 16px;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 .music-box::before {

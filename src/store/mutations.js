@@ -1,9 +1,6 @@
 export default {
-    setView(state, view) {
-        state.view = view;
-    },
-    setSongList(state, songList) {
-        state.songList = songList;
+    setAudioList(state, audioList) {
+        state.audioList = audioList;
     },
     setSearchCount(state, searchCount) {
         state.searchCount = searchCount;
@@ -14,9 +11,6 @@ export default {
     setAudio(state, audio) {
         state.audio = audio;
     },
-    setAudioSrc(state, audioSrc) {
-        state.audioSrc = audioSrc;
-    },
     setIsPlayed(state, isPlayed) {
         state.isPlayed = isPlayed;
     },
@@ -24,7 +18,7 @@ export default {
         state.canPlayed = canPlayed;
     },
     setPaused(state) {
-        if(!state.audioSrc) {
+        if(!state.curPlayAudioSrc) {
             state.paused = false;
             return;
         }
@@ -37,7 +31,7 @@ export default {
         }
     },
     setCurPlayIndex(state, curPlayIndex) {
-        const listTotal = state.songList.length;
+        const listTotal = state.audioList.length;
         if(curPlayIndex < 0) {
             curPlayIndex = listTotal - 1;
         }
@@ -46,8 +40,30 @@ export default {
         }
         state.curPlayIndex = curPlayIndex;
     },
+    setCurPlayAudio(state, curPlayIndex) {
+        const curPlayAudio = state.audioList[curPlayIndex]
+        state.curPlayAudio = curPlayAudio
+
+        const listTotal = state.audioList.length;
+        if(curPlayIndex < 0) {
+            curPlayIndex = listTotal - 1;
+        }
+        else if(curPlayIndex >= listTotal) {
+            curPlayIndex = 0;
+        }
+        state.curPlayIndex = curPlayIndex;
+        // state.curPlayAudioSrc = `http://${curPlayAudio.source.url}`;
+        // state.curPlayImgSrc = `http://${curPlayAudio.img.url}`;
+    },
+    setCurPlayAudioSrc(state, audioSrc) {
+        state.curPlayAudioSrc = audioSrc;
+    },
     setCurPlayImgSrc(state, curPlayImgSrc) {
         state.curPlayImgSrc = curPlayImgSrc;
+    },
+    setCurAlbum(state, album) {
+        state.curAlbum = album
+        state.curAlbumImgSrc = `http://${album.img.url}`
     },
     setCurPlayLrcArr(state, lyrics) {
         if(lyrics.length === 0) {
@@ -75,6 +91,7 @@ export default {
     },
     setModeType(state, modeType) {
         state.modeType = modeType;
+        window.localStorage.modeType = modeType;
     },
     setCurLrcIndex(state, curLrcIndex) {
         state.curLrcIndex = curLrcIndex;
@@ -85,5 +102,11 @@ export default {
     setLrcSwitch(state, lrcSwitch) {
         state.lrcSwitch = lrcSwitch;
         window.localStorage.lrcSwitch = lrcSwitch;
+    },
+    setShowAlbumDetail(state, show) {
+        state.showAlbumDetail = show
+    },
+    setShowAudioDetail(state, show) {
+        state.showAudioDetail = show
     }
 }

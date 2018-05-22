@@ -1,21 +1,21 @@
 export default {
-    listTotal: state => state.songList.length,
-    curPlayFileName: state => {
-        if(state.curPlayIndex < 0) {
-            return '';
-        }
-        return state.songList[state.curPlayIndex].FileName;
+    listTotal: state => state.audioList.length,
+    // curPlayFileName: state => {
+    //     if(state.curPlayIndex < 0) {
+    //         return '';
+    //     }
+    //     return state.audioList[state.curPlayIndex].FileName;
+    // },
+    curPlayAudio: state => {
+        return state.curPlayAudio
     },
-    curPlaySongName: state => {
-        if(state.curPlayIndex < 0) {
-            return '';
-        }
-        return state.songList[state.curPlayIndex].SongName;
-    },
-    curPlaySingerName: state => {
-        if(state.curPlayIndex < 0) {
-            return '';
-        }
-        return state.songList[state.curPlayIndex].SingerName;
+    curPlayIndex: state => {
+        return state.curPlayIndex
     }
+    // curPlayAudioName: state => {
+    //     if(state.curPlayIndex < 0) {
+    //         return '';
+    //     }
+    //     return state.audioList[state.curPlayIndex].audio_name;
+    // }
 }

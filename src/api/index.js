@@ -2,6 +2,8 @@
 import axios from 'axios';
 import request from './request';
 
+const apiUrl = 'http://localhost:5000/api/v1'
+
 export default {
     // 根据关键字搜索
     search(keyword) {
@@ -55,5 +57,23 @@ export default {
                 resolve(res);
             }).catch(reject);
         });
-    }
+    },
+
+
+    // ===============yyc api==================
+    async fetchAudioList(type) {
+        try {
+            return await axios.get(`${apiUrl}/audios/list?type=${type}`)
+        } catch (error) {
+            return error
+        }
+    },
+
+    async fetchAlbumsList() {
+        try {
+            return await axios.get(`${apiUrl}/albums/list`)
+        } catch (error) {
+            return error
+        }
+    },
 }

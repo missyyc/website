@@ -16,7 +16,5 @@
 
 <style lang = "less">
     @import "./less/reset.less";
-    /* #app {
-        padding-top: 2.6944rem;
-    } */
+    @import "./less/common.less";
 </style>
