@@ -1,4 +1,5 @@
 <template>
+    <!-- <div class="stage" ref="stage" :style="{'background-image': `url(${backgroundImage})`}"> -->
     <div class="stage" ref="stage">
         <music-box></music-box>
         <span class="copyright">@copyright 牛逼的二群孕育出的痒痒虫科技部！</span>
@@ -14,7 +15,7 @@
         },
         data() {
             return {
-                
+                backgroundImage: require('../../static/img/home-bg.png')
             }
         },
         computed: {
