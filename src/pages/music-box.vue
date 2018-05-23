@@ -195,7 +195,8 @@ export default {
   filter: blur(20px);
   z-index: -3;
   margin: -30px;
-  background-image: url("../../static/img/home-bg.png");
+  background-image: url(http://p8lwkpir3.bkt.clouddn.com/home-bg.png);
+  // background-image: url("../../static/img/home-bg.png");
   background-position: center top;
   background-size: cover;
   background-attachment: fixed;

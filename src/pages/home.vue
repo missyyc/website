@@ -43,7 +43,7 @@
         justify-content: center;
         width: 100%;
         min-height: 100vh;
-        background-image: url('../../static/img/home-bg.png');
+        background-image: url(http://p8lwkpir3.bkt.clouddn.com/home-bg.png);
         background-position: center top;
         background-size: cover;
 
