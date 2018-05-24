@@ -2,7 +2,7 @@
 import axios from 'axios';
 import request from './request';
 
-const apiUrl = 'http://localhost:5000/api/v1'
+const apiUrl = 'http://api.yangyangchong.com/api/v1'
 
 export default {
     // 根据关键字搜索
