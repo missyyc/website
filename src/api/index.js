@@ -38,7 +38,7 @@ export default {
 
     async getToken () {
         try {
-            return await axios.post('/auth', {
+            return await axios.post(`${apiUrl}/auth`, {
                 username: 'admin',
                 password: 'yyc'
             })
