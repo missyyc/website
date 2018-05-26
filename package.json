@@ -1,6 +1,6 @@
 {
   "name": "vue-music-player",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "> A Vue.js project",
   "main": "src/main.js",
   "scripts": {
@@ -27,8 +27,10 @@
     "lodash": "^4.17.10",
     "mint-ui": "^2.2.13",
     "moment": "^2.22.1",
+    "perfect-scrollbar": "^1.3.0",
     "v-click-outside": "^1.0.4",
     "vue": "^2.5.16",
+    "vue-perfect-scrollbar": "^0.1.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

@@ -12,20 +12,22 @@
                 </li>
             </ul>
         </div>
-        <div class="content">
+        <VuePerfectScrollbar class="scroll-area" :settings="settings">
+          <div class="content">
 
-            <div class="header">
-                <search-box></search-box>
-            </div>
-            
-            <albums-list></albums-list>
+              <div class="header">
+                  <search-box></search-box>
+              </div>
+              
+              <albums-list></albums-list>
 
-            <div class="audio-content">
-                <songs-list></songs-list>
-                <live-audio></live-audio>
-            </div>
+              <div class="audio-content">
+                  <songs-list></songs-list>
+                  <live-audio></live-audio>
+              </div>
 
-        </div>
+          </div>
+        </VuePerfectScrollbar>
 
         <album-detail v-if="showAlbumDetail"></album-detail>
         <audio-detail v-if="showAudioDetail"></audio-detail>
@@ -35,6 +37,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 import MusicToolbar from '../components/music-toolbar.vue';
 import SongsList from '../components/songs-list.vue';
@@ -47,6 +50,7 @@ import SearchBox from '../components/search-box.vue';
 export default {
   name: "music-box",
   components: {
+    VuePerfectScrollbar,
     MusicToolbar,
     SongsList,
     AlbumsList,
@@ -56,7 +60,11 @@ export default {
     SearchBox,
   },
   data() {
-    return {};
+    return {
+      settings: {
+        maxScrollbarLength: 60
+      }
+    };
   },
   computed: {
     ...mapState([
@@ -82,6 +90,9 @@ export default {
             
         }
     },
+    scrollHanle(evt) {
+      console.log(evt)
+    }
   }
 };
 </script>
@@ -90,7 +101,6 @@ export default {
 <style lang="less">
 @import (reference) "../less/mixin.less";
 
-@paddingLeft: 47px;
 @h4MarginBottom: 30px;
 
 .music-box {
@@ -160,13 +170,21 @@ export default {
 
   }
 
+  .scroll-area {
+    position: relative;
+    width: @musicBoxContentWidth;
+    // height: calc(@musicBoxHeight - @musicToolBarHeight);
+    height: @musicBoxHeight;
+    background-color: #fff;
+  }
+
   .content {
     position: relative;
-    width: 984px;
-    height: 720px;
-    padding-bottom: @musicToolBarHeight;
-    overflow: scroll;
-    padding-left: @paddingLeft;
+    width: @musicBoxContentWidth;
+    // height: calc(@musicBoxHeight + @musicToolBarHeight);
+    // overflow: scroll;
+    padding: 0 @contentPadding;
+    padding-bottom: calc(@musicToolBarHeight + 10px);
     background-color: #fff;
 
     .header {

@@ -61,11 +61,11 @@ export default {
     .dayliveaudios-list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: space-between;
 
         .dayliveaudios-list-item {
             cursor: pointer;
-            margin-right: 23px;
+            // margin-right: 23px;
             margin-bottom: 23px;
             width: 154px;
             height: 95px;
