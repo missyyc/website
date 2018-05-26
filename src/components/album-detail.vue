@@ -67,7 +67,7 @@ export default {
         top: 0;
         left: @musicBoxNavWidth;
         width: calc(100% - @musicBoxNavWidth);
-        height: calc(720px - 68px);
+        height: 100%;
         background-color: burlywood;
 
         .cover-img {
