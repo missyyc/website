@@ -1,8 +1,9 @@
 export default {
-    view: "",                   // 当前播放歌曲所属的路由
     audioList: [],               // 歌曲列表数组
+    willPlayList: [],           // 即将播放的歌曲列表
     searchCount: 0,             // 搜索结果歌曲的数量
     showDetail: false,          // 是否显示详情页
+    hasMask: false,             // 是否有蒙层  
     audio: null,                // audio的dom节点
     isPlayed: false,            // 是否有音乐在播放
     canPlayed: false,           // 是否可以播放音乐

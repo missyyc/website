@@ -1,6 +1,6 @@
 {
   "name": "vue-music-player",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "> A Vue.js project",
   "main": "src/main.js",
   "scripts": {
@@ -24,8 +24,10 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.12",
     "@fortawesome/vue-fontawesome": "^0.0.22",
     "axios": "^0.18.0",
+    "lodash": "^4.17.10",
     "mint-ui": "^2.2.13",
     "moment": "^2.22.1",
+    "v-click-outside": "^1.0.4",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

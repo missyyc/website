@@ -3,32 +3,47 @@
         <h4>每日直播音频</h4>
 
         <div class="dayliveaudios-list">
-            <div class="dayliveaudios-list-item" v-for="(audio, index) in liveAudioList">
+            <div class="dayliveaudios-list-item" v-for="(audio, index) in liveAudiosList" @click="playLiveAudio(audio)">
                 <img :src="`http://${audio.img.url}`" alt="">
+                <p>{{audio.audio_name}}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
     name: 'live-audio',
     data () {
         return {
-            liveAudioList: []
         }
     },
+    computed: {
+        ...mapState([
+            'audioList'
+        ]),
+        ...mapGetters([
+            'liveAudiosList'
+        ])
+    },
     created () {
-        this.getLiveAudioList()
     },
     methods: {
-        async getLiveAudioList() {
-            try {
-                const ret = await this.api.fetchAudioList('live_audio')
-                this.liveAudioList = ret.data.results || []
-            } catch (error) {
-                
+
+        playLiveAudio (curAudio) {
+            const index = this.audioList.findIndex(audio => audio._id === curAudio._id)
+            console.log('index================>', index)
+            if (index >= 0) {
+                this.$store.commit("setCurPlayAudio", index)
+            } else {
+                this.audioList.push(curAudio)
+                console.log('this.audioList================>', this.audioList.length)
+                this.$store.commit('setAudioList', this.audioList)
+                this.$store.commit("setCurPlayAudio", this.audioList.length - 1)
             }
+            this.$store.dispatch("playAudio")
         }
     }
 }
@@ -49,6 +64,7 @@ export default {
         justify-content: flex-start;
 
         .dayliveaudios-list-item {
+            cursor: pointer;
             margin-right: 23px;
             margin-bottom: 23px;
             width: 154px;
@@ -61,6 +77,10 @@ export default {
                 height: 100%;
                 border-radius: 3px;
                 object-fit: cover;
+            }
+
+            p {
+                text-align: center;
             }
         }
     }

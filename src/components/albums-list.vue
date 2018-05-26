@@ -29,7 +29,6 @@ export default {
         async getAlbumsList () {
             try {
                     const ret = await this.api.fetchAlbumsList()
-                    console.log('ret================>', ret)
                     this.albumsList = ret.data.results || []
                 } catch (error) {
                     
@@ -39,6 +38,7 @@ export default {
         // 显示专辑详情
         showAlbum (album) {
             this.$store.commit('setCurAlbum', album)
+            this.$store.commit('setWillPlayList', album.songs)
             this.$store.commit('setShowAlbumDetail', true)
         }
   }

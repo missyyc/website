@@ -1,5 +1,5 @@
 <template>
-    <div class="music-box">
+    <div class="music-box" v-bind:class="{ 'has-mask': hasMask }">
         <div class="navbar">
             <ul class="navgation">
                 <li class="active">
@@ -13,27 +13,22 @@
             </ul>
         </div>
         <div class="content">
-                <div class="header">
-                    <SearchIcon class="icon" />
-                    <input type="text" placeholder="搜索歌曲">
-                </div>
-                
-                <albums-list></albums-list>
 
-                <div class="audio-content">
-                    <songs-list></songs-list>
-                    <live-audio></live-audio>
-                </div>
+            <div class="header">
+                <search-box></search-box>
+            </div>
+            
+            <albums-list></albums-list>
 
-                <keep-alive>
-                  <album-detail v-if="showAlbumDetail"></album-detail>
-                </keep-alive>
+            <div class="audio-content">
+                <songs-list></songs-list>
+                <live-audio></live-audio>
+            </div>
 
-                <keep-alive>
-                  <audio-detail v-if="showAudioDetail"></audio-detail>
-                </keep-alive>
         </div>
-        
+
+        <album-detail v-if="showAlbumDetail"></album-detail>
+        <audio-detail v-if="showAudioDetail"></audio-detail>
         <music-toolbar v-if="canPlayed"></music-toolbar>
     </div>
 </template>
@@ -41,37 +36,52 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 
-import SearchIcon from "../../static/img/search.svg";
 import MusicToolbar from '../components/music-toolbar.vue';
 import SongsList from '../components/songs-list.vue';
 import AlbumsList from '../components/albums-list.vue';
 import LiveAudio from '../components/live-audio.vue';
 import AlbumDetail from '../components/album-detail.vue';
 import AudioDetail from '../components/audio-detail.vue';
+import SearchBox from '../components/search-box.vue';
 
 export default {
   name: "music-box",
   components: {
-    SearchIcon,
     MusicToolbar,
     SongsList,
     AlbumsList,
     LiveAudio,
     AlbumDetail,
     AudioDetail,
+    SearchBox,
   },
   data() {
     return {};
   },
   computed: {
     ...mapState([
+      'hasMask',
       'canPlayed',
       'showAudioDetail',
       'showAlbumDetail'
+    ]),
+    ...mapGetters([
+      'songsList'
     ])
   },
+  created () {
+    this.getAudioList()
+  },
   methods: {
-    
+    async getAudioList () {
+        try {
+            const ret = await this.api.fetchAudioList()
+            this.$store.commit('setAudioList', ret.data.results)
+            this.$store.commit('setWillPlayList', this.songsList)
+        } catch (error) {
+            
+        }
+    },
   }
 };
 </script>
@@ -153,7 +163,7 @@ export default {
   .content {
     position: relative;
     width: 984px;
-    height: 100%;
+    height: 720px;
     padding-bottom: @musicToolBarHeight;
     overflow: scroll;
     padding-left: @paddingLeft;
@@ -171,6 +181,13 @@ export default {
         display: flex;
         justify-content: flex-start;
     }
+  }
+}
+
+.music-box.has-mask {
+  .content {
+    overflow: hidden;
+    height: 100%;
   }
 }
 

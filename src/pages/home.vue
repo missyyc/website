@@ -23,6 +23,7 @@
         },
         // 根据loop的值初始化
         created() {
+            this.$store.dispatch('setToken')
         },
         beforeMount () {
         },

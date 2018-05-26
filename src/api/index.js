@@ -1,69 +1,28 @@
 // 统一管理各个请求
 import axios from 'axios';
-import request from './request';
 
 const apiUrl = 'http://api.yangyangchong.com/api/v1'
+// const apiUrl = 'http://localhost:5000/api/v1'
+
+// axios.defaults.baseURL = apiUrl;
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+
+const getToken = () => {
+    return window.localStorage.getItem('yyc-token')
+}
 
 export default {
-    // 根据关键字搜索
-    search(keyword) {
-        return new Promise((resolve, reject) => {
-            const params = {
-                keyword
-            };
-            console.log(">>> [api.params] 根据关键字搜索", params);
-            axios.post(request.search, params).then(res => {
-                resolve(res);
-            }).catch(reject);
-        });
-    },
-    // 获取静态json数据中的歌曲列表
-    getList(path) {
-        return new Promise((resolve, reject) => {
-            console.log('>>> [api.params] 获取静态json数据中的歌曲列表', path);
-            axios.post(request[path]).then(res => {
-                resolve(res);
-            }).catch(reject);
-        });
-    },
-    // 获取歌曲的一些信息
-    getSongInfo(songName, page = 1) {
-        return new Promise((resolve, reject) => {
-            const params = {
-                page,
-                pagesize: 20,
-                keyword: songName,
-                platform: "WebFilter",
-                userid: -1,
-                iscorrection: 1,
-                privilege_filter: 0,
-                filter: 2
-            };
-            console.log('>>> [api.params] 获取歌曲的一些信息', params);
-            axios.get(request.songsearch, { params }).then(res => {
-                resolve(res);
-            }).catch(reject);
-        });
-    },
-    // 根据hash值获取歌曲的信息
-    play(hash) {
-        return new Promise((resolve, reject) => {
-            const params = {
-                r: "play/getdata",
-                hash
-            };
-            console.log('>>> [api.params] 根据hash值获取歌曲的信息', params);
-            axios.get(request.play, { params }).then(res => {
-                resolve(res);
-            }).catch(reject);
-        });
-    },
-
-
+    
     // ===============yyc api==================
     async fetchAudioList(type) {
         try {
-            return await axios.get(`${apiUrl}/audios/list?type=${type}`)
+            let url = null
+            if (type) {
+                url = `${apiUrl}/audios/list?type=${type}`
+            } else {
+                url = `${apiUrl}/audios/list`
+            }
+            return await axios.get(url)
         } catch (error) {
             return error
         }
@@ -76,4 +35,53 @@ export default {
             return error
         }
     },
+
+    async getToken () {
+        try {
+            return await axios.post('/auth', {
+                username: 'admin',
+                password: 'yyc'
+            })
+        } catch (error) {
+            return error
+        }
+    },
+
+    // 根据关键字搜索
+    async search(keyword) {
+        try {
+            return await axios.get(`${apiUrl}/search?keyword=${keyword}`)
+        } catch (error) {
+            return error
+        }
+    },
+
+    async addPlayCount({audioId, play_times}) {
+        try {
+            return await axios({
+                method: 'PUT',
+                headers: {
+                    'authorization': `Bearer ${getToken()}`
+                },
+                url: `${apiUrl}/audios/update/${audioId}`,
+                data: {play_times}
+            })
+        } catch (error) {
+            
+        }
+    },
+    async addLoveCount({audioId, love_times}) {
+        try {
+            return await axios({
+                method: 'PUT',
+                headers: {
+                    'authorization': `Bearer ${getToken()}`
+                },
+                url: `${apiUrl}/audios/update/${audioId}`,
+                data: {love_times}
+            })
+        } catch (error) {
+            
+        }
+    }
 }

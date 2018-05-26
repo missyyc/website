@@ -18,7 +18,7 @@
                 <span>{{moment(song.sing_date).format('YYYY-MM-DD')}}</span>
             </div> -->
             <song-item 
-                v-for="(song, index) in audioList"
+                v-for="(song, index) in songsList"
                 v-bind:key="song._id"
                 v-bind:song="song"
                 :index="index"
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import SongItem from './song-item.vue';
 
 export default {
@@ -37,26 +38,15 @@ export default {
         SongItem,
     },
     data () {
-        return {
-            audioList: [], // 歌曲列表
-        }
+        return {}
     },
     computed: {
-        
-    },
-    created () {
-        this.getAudioList()
+        ...mapGetters([
+            'songsList',
+        ])
     },
     methods: {
-        async getAudioList () {
-            try {
-                const ret = await this.api.fetchAudioList('song')
-                this.audioList = ret.data.results || []
-                this.$store.commit('setAudioList', ret.data.results)
-            } catch (error) {
-                
-            }
-        },
+        
         
     }
 }

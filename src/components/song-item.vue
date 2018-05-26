@@ -5,11 +5,13 @@
             <span>{{ song.audio_name }}</span>
         </div>
         <div class="song-item song-btn">
-            <PlayIcon class="icon"/>
+            <PlayIcon class="icon icon-animate"/>
             <span>{{ song.play_times }}</span>
         </div>
         <div class="song-item song-btn">
-            <LoveIcon class="icon"/>
+            <span class="icon-button" @click.stop.prevent="addLoveTimes(song)">
+                <LoveIcon class="icon icon-animate"/>
+            </span>
             <span>{{ song.love_times }}</span>
         </div>
         <span>{{moment(song.sing_date).format('YYYY-MM-DD')}}</span>
@@ -17,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import PlayIcon from "../../static/img/play.svg";
 import LoveIcon from "../../static/img/icon_love.svg";
 
@@ -31,6 +33,9 @@ export default {
     computed: {
         ...mapState([
             'curPlayAudio'
+        ]),
+        ...mapGetters([
+            'songsList'
         ]),
         songsItemClass () {
             if (this.curPlayAudio._id === this.song._id) {
@@ -46,8 +51,15 @@ export default {
     methods: {
         // 播放
         play (CurPlayIndex) {
+            // this.$store.commit("setWillPlayList", this.songsList)
             this.$store.commit("setCurPlayAudio", CurPlayIndex)
             this.$store.dispatch("playAudio")
+            // this.$store.commit('addCurAudioPlayCount')
+            this.$store.dispatch("addPlayCount")
+        },
+
+        addLoveTimes (audio) {
+            this.$store.dispatch("addLoveCount", audio)
         }
     }
 }

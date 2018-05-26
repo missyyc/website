@@ -7,9 +7,9 @@
             <div class="audio-detail-content">
                 <div class="content-btns">
                     <img class="cover-img" :src="curPlayImgSrc" alt="" />
-                    <span>
+                    <!-- <span>
                         <LoveIcon class="icon" />
-                    </span>
+                    </span> -->
                 </div>
 
                 <div class="content-infos">
@@ -63,8 +63,8 @@ export default {
                     currentImgSrc: "static/img/current-type1.png"
                 },
                 {
-                    defaultColor: "#c1f3dc",
-                    activeColor: "#33a3f5",
+                    defaultColor: "#777777",
+                    activeColor: "#ffffff",
                     currentImgSrc: "static/img/current-type2.png"
                 },
                 {
@@ -153,6 +153,7 @@ export default {
         },
 
         closeAudioDetail () {
+            this.$store.commit("setHasMask", false)
             this.$store.commit('setShowAudioDetail', false)
         },
 
@@ -187,11 +188,6 @@ export default {
         },
 
     },
-
-    destroyed () {
-        this.destroyed()
-        console.log('destroyed================>')
-    }
 }
 </script>
 
@@ -201,10 +197,10 @@ export default {
         position: absolute;
         z-index: 1;
         top: 0;
-        left: 0;
-        width: 100%;
+        left: @musicBoxNavWidth;
+        width: calc(100% - @musicBoxNavWidth);
         height: 100%;
-        background-color: burlywood;
+        background-color: #ccc;
 
         .collapse-btn {
             position: absolute;

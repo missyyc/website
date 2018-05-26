@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import SongItem from './song-item.vue';
 import CloseIcon from "../../static/img/close.svg";
 
@@ -37,6 +37,9 @@ export default {
             'showAlbumDetail',
             'curAlbum',
             'curAlbumImgSrc'
+        ]),
+        ...mapGetters([
+            'songsList'
         ])
     },
     created () {
@@ -44,7 +47,9 @@ export default {
     },
     methods: {
         closeAlbumDetail () {
+            this.$store.commit('setWillPlayList', this.songsList)
             this.$store.commit('setShowAlbumDetail', false)
+            this.$store.commit("setHasMask", false)
         }
     }
 }
@@ -60,9 +65,9 @@ export default {
         position: absolute;
         z-index: 1;
         top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        left: @musicBoxNavWidth;
+        width: calc(100% - @musicBoxNavWidth);
+        height: calc(720px - 68px);
         background-color: burlywood;
 
         .cover-img {

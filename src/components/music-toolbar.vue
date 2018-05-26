@@ -273,6 +273,7 @@ export default {
         },
 
         expandSongDetail () {
+            this.$store.commit("setHasMask", true)
             this.$store.commit("setShowAudioDetail", true)
         }
     },
@@ -380,16 +381,6 @@ export default {
                 }
             }
     
-            .song-time-ctrl {
-                width: 200px;
-                height: 2px;
-                .timeline {
-                    width: 200px;
-                    height: 2px;
-                    border-radius: 2px;
-                    background: #7485FF;
-                }
-            }
     
              .time-wrap {
                 color: #99A6BD;
@@ -397,8 +388,11 @@ export default {
                 align-items: center;
                 .progress-wrap {
                     flex: 1;
+                    cursor: pointer;
                     width: 200px;
-                    height: 2px;
+                    height: 4px;
+                    border-radius: 4px;
+                    // overflow: hidden;
                     position: relative;
                     margin: 0 8px;
                     background-color: #6c6b70;
@@ -412,6 +406,7 @@ export default {
                         left: 0;
                         top: 0;
                         height: 100%;
+                        border-radius: 100% 0 0 100%;
                         position: absolute;
                         background-color: #3195fd
                     }

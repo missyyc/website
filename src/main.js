@@ -6,6 +6,7 @@ import router from './router';
 import api from './api';
 import adapt from './js/adapt';
 import moment from 'moment';
+import vClickOutside from 'v-click-outside'
 
 if(module.hot) {
     module.hot.accept();
@@ -19,6 +20,7 @@ Vue.prototype.$Indicator = Indicator;
 Vue.prototype.$MessageBox = MessageBox;
 Vue.prototype.moment = moment;
 Vue.config.productionTip = false;
+Vue.use(vClickOutside)
 
 const vm = new Vue({
     el: '#app',

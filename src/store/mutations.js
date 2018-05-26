@@ -2,6 +2,9 @@ export default {
     setAudioList(state, audioList) {
         state.audioList = audioList;
     },
+    setWillPlayList(state, list) {
+        state.willPlayList = list
+    },
     setSearchCount(state, searchCount) {
         state.searchCount = searchCount;
     },
@@ -17,6 +20,12 @@ export default {
     setCanPlayed(state, canPlayed) {
         state.canPlayed = canPlayed;
     },
+    addCurAudioPlayCount(state) {
+        state.curPlayAudio.play_times += 1
+    },
+    addCurAudioLoveCount(state, audio) {
+        audio.love_times += 1
+    },
     setPaused(state) {
         if(!state.curPlayAudioSrc) {
             state.paused = false;
@@ -30,8 +39,11 @@ export default {
             state.audio.play();
         }
     },
+    setHasMask(state, value) {
+        state.hasMask = value
+    },
     setCurPlayIndex(state, curPlayIndex) {
-        const listTotal = state.audioList.length;
+        const listTotal = state.willPlayList.length;
         if(curPlayIndex < 0) {
             curPlayIndex = listTotal - 1;
         }
@@ -41,10 +53,10 @@ export default {
         state.curPlayIndex = curPlayIndex;
     },
     setCurPlayAudio(state, curPlayIndex) {
-        const curPlayAudio = state.audioList[curPlayIndex]
+        const curPlayAudio = state.willPlayList[curPlayIndex]
         state.curPlayAudio = curPlayAudio
 
-        const listTotal = state.audioList.length;
+        const listTotal = state.willPlayList.length;
         if(curPlayIndex < 0) {
             curPlayIndex = listTotal - 1;
         }
@@ -52,8 +64,6 @@ export default {
             curPlayIndex = 0;
         }
         state.curPlayIndex = curPlayIndex;
-        // state.curPlayAudioSrc = `http://${curPlayAudio.source.url}`;
-        // state.curPlayImgSrc = `http://${curPlayAudio.img.url}`;
     },
     setCurPlayAudioSrc(state, audioSrc) {
         state.curPlayAudioSrc = audioSrc;
