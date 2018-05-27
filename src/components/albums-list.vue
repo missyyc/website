@@ -1,6 +1,6 @@
 <template>
     <div class="albums">
-        <h4>专辑歌曲</h4>
+        <h4 class="yyc-h4-font">专辑歌曲</h4>
         <VuePerfectScrollbar class="albumlist-scroll-area" :settings="settings">
             <div class="albums-list">
                 <div class="album-item" v-for="(album, index) in albumsList" @click="showAlbum(album)">
@@ -96,6 +96,7 @@ export default {
                 font-size: 14px;
                 margin-top: 16px;
                 letter-spacing: 2px;
+                color: #fff;
             }
         }
     }

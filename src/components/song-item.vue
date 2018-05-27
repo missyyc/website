@@ -1,34 +1,48 @@
 <template>
-    <div :class="songsItemClass" @click="play(index)">
+    <div :class="songsItemClass" @click="play(index)" @mouseover="toggleIsHover" @mouseout="toggleIsHover">
         <div class="song-item song-info">
             <img :src="`http://${song.img.url}`" alt="">
             <span>{{ song.audio_name }}</span>
         </div>
         <div class="song-item song-btn">
-            <PlayIcon class="icon icon-animate"/>
+            <span v-if="isHover">
+                <PlayIcon class="icon icon-animate"/>
+            </span>
+            <span v-else>
+                <PlayWhiteIcon class="icon icon-animate"/>
+            </span>
             <span>{{ song.play_times }}</span>
         </div>
         <div class="song-item song-btn">
-            <span class="icon-button" @click.stop.prevent="addLoveTimes(song)">
+            <span v-if="isHover" class="icon-button" @click.stop.prevent="addLoveTimes(song)">
                 <LoveIcon class="icon icon-animate"/>
+            </span>
+            <span v-else>
+                <LoveWhiteIcon class="icon icon-animate"/>
             </span>
             <span>{{ song.love_times }}</span>
         </div>
-        <span>{{moment(song.sing_date).format('YYYY-MM-DD')}}</span>
+        <div class="song-item">
+            <span>{{moment(song.sing_date).format('YYYY-MM-DD')}}</span>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import PlayWhiteIcon from "../../static/img/play_white.svg";
 import PlayIcon from "../../static/img/play.svg";
 import LoveIcon from "../../static/img/icon_love.svg";
+import LoveWhiteIcon from "../../static/img/icon_love_white.svg";
 
 export default {
     name: "song-item",
     props: ["song", "index"],
     components: {
+        PlayWhiteIcon,
         PlayIcon,
         LoveIcon,
+        LoveWhiteIcon,
     },
     computed: {
         ...mapState([
@@ -46,7 +60,9 @@ export default {
         }
     },
     data () {
-        return {}
+        return {
+            isHover: false
+        }
     },
     methods: {
         // 播放
@@ -60,6 +76,10 @@ export default {
 
         addLoveTimes (audio) {
             this.$store.dispatch("addLoveCount", audio)
+        },
+
+        toggleIsHover () {
+            this.isHover = !this.isHover
         }
     }
 }
@@ -80,6 +100,10 @@ export default {
 
     .song-item {
         display: inline-block;
+
+        span {
+            color: #fff;
+        }
     }
 
     .song-info {
@@ -93,6 +117,7 @@ export default {
     }
 
     .song-btn {
+        width: 50px;
         span {
             margin-left: 5px;
         }
@@ -124,6 +149,15 @@ export default {
     height: 32px;
     background-color: #F1F3FF;
     border-radius: 3px;
+}
+
+.songs-list-item:hover{
+
+    .song-item {
+        span {
+            color: #333;
+        }
+    } 
 }
 </style>
 

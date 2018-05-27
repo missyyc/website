@@ -1,6 +1,6 @@
 <template>
   <div class="songs">
-        <h4>歌曲列表</h4>
+        <h4 class="yyc-h4-font">歌曲列表</h4>
         <div class="songs-list">
             <!-- <div class="songs-list-item active" v-for="(song, index) in audioList"  @click="play(index)">
                 <div class="song-item song-info">

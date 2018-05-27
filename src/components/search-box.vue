@@ -91,6 +91,10 @@ export default {
     position: relative;
     .search-input {
         height: 24px;
+
+        input {
+            color: #fff;
+        }
     }
     .search-list {
         position: absolute;

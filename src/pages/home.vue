@@ -15,7 +15,6 @@
         },
         data() {
             return {
-                backgroundImage: require('../../static/img/home-bg.png')
             }
         },
         computed: {
@@ -44,7 +43,8 @@
         justify-content: center;
         width: 100%;
         min-height: 100vh;
-        background-image: url(http://p8lwkpir3.bkt.clouddn.com/home-bg.png);
+        /* background-image: url(http://p8lwkpir3.bkt.clouddn.com/home-bg.png); */
+        background-image: url(http://p8lwkpir3.bkt.clouddn.com/93A05DEC548DA5261F255EB2C88AD401.jpg);
         background-position: center top;
         background-size: cover;
 

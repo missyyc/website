@@ -1,6 +1,6 @@
 <template>
      <div class="dayliveaudios">
-        <h4>每日直播音频</h4>
+        <h4 class="yyc-h4-font">每日直播音频</h4>
 
         <div class="dayliveaudios-list">
             <div class="dayliveaudios-list-item" v-for="(audio, index) in liveAudiosList" @click="playLiveAudio(audio)">
@@ -83,6 +83,7 @@ export default {
 
             p {
                 text-align: center;
+                color: #fff;
             }
         }
     }

@@ -207,7 +207,7 @@ export default {
     width: @musicBoxContentWidth;
     // height: calc(@musicBoxHeight - @musicToolBarHeight);
     height: @musicBoxHeight;
-    background-color: #fff;
+    // background-color: #fff;
   }
 
   .content {
@@ -217,7 +217,7 @@ export default {
     // overflow: scroll;
     padding: 0 @contentPadding;
     padding-bottom: calc(@musicToolBarHeight + 10px);
-    background-color: #fff;
+    // background-color: #fff;
 
     .header {
       margin: 24px 0 50px 0;
@@ -262,8 +262,8 @@ export default {
   filter: blur(20px);
   z-index: -3;
   margin: -30px;
-  background-image: url(http://p8lwkpir3.bkt.clouddn.com/home-bg.png);
-  // background-image: url("../../static/img/home-bg.png");
+  // background-image: url(http://p8lwkpir3.bkt.clouddn.com/home-bg.png);
+  background-image: url(http://p8lwkpir3.bkt.clouddn.com/93A05DEC548DA5261F255EB2C88AD401.jpg);
   background-position: center top;
   background-size: cover;
   background-attachment: fixed;
