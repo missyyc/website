@@ -19,6 +19,9 @@
               <a class="social-icon" target="_blank" href="https://weibo.com/u/6535651350">
                 <img src="../../static/img/weibo.jpg" alt="">
               </a>
+              <a class="social-icon" target="_blank" href="https://space.bilibili.com/324510214/#/">
+                <img src="../../static/img/bilibili.png" alt="">
+              </a>
             </div>
         </div>
         <VuePerfectScrollbar class="scroll-area" :settings="settings">
