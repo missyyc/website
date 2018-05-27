@@ -103,7 +103,7 @@ export default {
             z-index: 20;
             // margin-top: 300px;
             padding: 20px;
-            background-color: rgba(0, 0, 0, .1);
+            background-color: rgba(0, 0, 0, .3);
             width: 500px;
             min-height: 0;
             border-radius: @borderRadius;
