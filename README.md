@@ -31,3 +31,10 @@
 ##### Version 0.0.10
 1. 修改首页样式
 2. 增加bili外链
+
+##### Version 0.0.11
+1. 修改music-toolbar，歌曲图片会随歌手信息过长压缩的BUG.
+
+#### 资源链接
+
+https://pan.baidu.com/s/1or1xwbjO2byeAYqjkcGwLw#list/path=%2F%E7%97%92%E7%97%92%E8%99%AB%2F%E9%9F%B3%E9%A2%91%2F18.05.12%20%E6%83%B3%E7%97%92%E7%97%92%E7%9A%84365%E5%A4%A9%20%5B%E9%AB%98%E9%9F%B3%E8%B4%A8%5D&parentPath=%2F%E7%97%92%E7%97%92%E8%99%AB

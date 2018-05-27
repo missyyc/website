@@ -1,6 +1,6 @@
 {
   "name": "vue-music-player",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "> A Vue.js project",
   "main": "src/main.js",
   "scripts": {

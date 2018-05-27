@@ -314,7 +314,7 @@ export default {
             background-color: rgba(247, 249, 250, 1);
     
             .song-info {
-                width: 200px;
+                width: 400px;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
@@ -385,11 +385,13 @@ export default {
     
     
              .time-wrap {
+                width: 400px;
                 color: #99A6BD;
                 display: flex;
+                justify-content: flex-end;
                 align-items: center;
                 .progress-wrap {
-                    flex: 1;
+                    // flex: 1;
                     cursor: pointer;
                     width: 200px;
                     height: 4px;
@@ -399,7 +401,8 @@ export default {
                     margin: 0 8px;
                     background-color: #6c6b70;
                     .progress-bar {	
-                        width: 100%;
+                        // width: 100%;
+                        width: 200px;
                         height: 100%;
                         position: relative;
                         z-index: 1;
