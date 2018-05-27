@@ -1,5 +1,5 @@
 <template>
-  <div class="songs">
+  <div class="songs-list-content">
         <h4 class="yyc-h4-font">歌曲列表</h4>
         <div class="songs-list">
             <!-- <div class="songs-list-item active" v-for="(song, index) in audioList"  @click="play(index)">
@@ -54,8 +54,8 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) "../less/mixin.less";
-.songs {
-    width: 530px;
+.songs-list-content {
+    width: 510px;
     h4 {
         .h4-font;
         margin-bottom: @h4MarginBottom;

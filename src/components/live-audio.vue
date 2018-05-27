@@ -54,7 +54,7 @@ export default {
 <style lang="less" scoped>
 @import (reference) "../less/mixin.less";
 .dayliveaudios {
-    width: 380px;
+    width: 340px;
     margin-left: 30px;
     h4 {
         .h4-font;
