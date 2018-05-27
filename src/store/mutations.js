@@ -5,6 +5,12 @@ export default {
     setWillPlayList(state, list) {
         state.willPlayList = list
     },
+    pushToWillPlayList(state, audio) {
+        const idx = state.willPlayList.findIndex(item => item._id === audio._id)
+        if ( idx < 0) {
+            state.willPlayList.push(audio)
+        }
+    },
     setSearchCount(state, searchCount) {
         state.searchCount = searchCount;
     },

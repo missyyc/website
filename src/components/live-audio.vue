@@ -22,7 +22,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'audioList'
+            'audioList',
+            'willPlayList'
         ]),
         ...mapGetters([
             'liveAudiosList'
@@ -33,16 +34,17 @@ export default {
     methods: {
 
         playLiveAudio (curAudio) {
-            const index = this.audioList.findIndex(audio => audio._id === curAudio._id)
+            this.$store.commit('pushToWillPlayList', curAudio)
+            const index = this.willPlayList.findIndex(audio => audio._id === curAudio._id)
             console.log('index================>', index)
-            if (index >= 0) {
-                this.$store.commit("setCurPlayAudio", index)
-            } else {
-                this.audioList.push(curAudio)
-                console.log('this.audioList================>', this.audioList.length)
-                this.$store.commit('setAudioList', this.audioList)
-                this.$store.commit("setCurPlayAudio", this.audioList.length - 1)
-            }
+            // if (index >= 0) {
+            this.$store.commit("setCurPlayAudio", index)
+            // } else {
+            //     this.audioList.push(curAudio)
+            //     console.log('this.audioList================>', this.audioList.length)
+            //     this.$store.commit('setAudioList', this.audioList)
+            //     this.$store.commit("setCurPlayAudio", this.audioList.length - 1)
+            // }
             this.$store.dispatch("playAudio")
         }
     }

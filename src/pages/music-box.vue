@@ -11,6 +11,15 @@
                     <span>MV</span>
                 </li>
             </ul>
+
+            <div class="yyc-social-plats">
+              <a class="social-icon" target="_blank" href="https://www.douyu.com/4835718">
+                <img src="../../static/img/douyu.png" alt="">
+              </a>
+              <a class="social-icon" target="_blank" href="https://weibo.com/u/6535651350">
+                <img src="../../static/img/weibo.jpg" alt="">
+              </a>
+            </div>
         </div>
         <VuePerfectScrollbar class="scroll-area" :settings="settings">
           <div class="content">
@@ -123,6 +132,10 @@ export default {
 
   .navbar {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
     width: 186px;
     height: 100%;
     background-color: rgba(226, 233, 240, 0.4);
@@ -167,6 +180,23 @@ export default {
         border-bottom: 4px solid transparent;
         height: 18px;
         width: 20px;
+      }
+    }
+
+    .yyc-social-plats {
+      display: flex;
+      flex-direction: row;
+      padding-left: 24px;
+      padding-bottom: 20px;
+
+      .social-icon {
+          margin-right: 8px;
+          img {
+              width: 20px;
+              height: 20px;
+              border-radius: 4px;
+              object-fit: cover;
+          }
       }
     }
 
