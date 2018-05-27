@@ -11,6 +11,10 @@ export default new Router({
         {
             path: '/',
             component: Home,
+        },
+        {
+            path: '/douyu',
+            redirect: 'https://www.douyu.com/4835718'
         }
     ]
 });
