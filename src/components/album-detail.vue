@@ -68,7 +68,7 @@ export default {
         left: @musicBoxNavWidth;
         width: calc(100% - @musicBoxNavWidth);
         height: 100%;
-        background-color: burlywood;
+        background-color: #ffffff;
 
         .cover-img {
             position: absolute;
@@ -94,7 +94,7 @@ export default {
             z-index: 20;
             // margin-top: 300px;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, .8);
             width: 500px;
             min-height: 0;
             border-radius: @borderRadius;
