@@ -30,7 +30,9 @@
         </VuePerfectScrollbar>
 
         <album-detail v-if="showAlbumDetail"></album-detail>
-        <audio-detail v-if="showAudioDetail"></audio-detail>
+        <keep-alive>
+          <audio-detail v-if="showAudioDetail"></audio-detail>
+        </keep-alive>
         <music-toolbar v-if="canPlayed"></music-toolbar>
     </div>
 </template>

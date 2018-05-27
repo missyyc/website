@@ -1,5 +1,8 @@
 export default {
     listTotal: state => state.audioList.length,
+    audio: state => {
+        return state.audio
+    },
     curPlayAudio: state => {
         return state.curPlayAudio
     },

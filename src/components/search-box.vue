@@ -25,7 +25,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'audioList'
+            'audioList',
+            'willPlayList'
         ])
     },
     data () {
@@ -68,11 +69,11 @@ export default {
         },
 
         playAudio (curAudio) {
-            const index = this.audioList.findIndex(audio => audio._id === curAudio._id)
+            const index = this.willPlayList.findIndex(audio => audio._id === curAudio._id)
             if (index) {
                 this.$store.commit("setCurPlayAudio", index)
             } else {
-                const newAudioList = this.audioList.push(curAudio)
+                const newAudioList = this.willPlayList.push(curAudio)
                 this.$store.commit('setAudioList', newAudioList)
                 this.$store.commit("setCurPlayAudio", newAudioList.length - 1)
             }

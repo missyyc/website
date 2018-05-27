@@ -104,7 +104,7 @@ export default {
         window.localStorage.modeType = modeType;
     },
     setCurLrcIndex(state, curLrcIndex) {
-        state.curLrcIndex = curLrcIndex;
+        state.curLrcIndexFlag = curLrcIndex;
     },
     setLrcColor(state, lrcColor) {
         state.lrcColor = lrcColor;

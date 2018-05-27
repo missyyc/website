@@ -165,9 +165,10 @@ export default {
         },
         // 监听audio的canplay事件
         canplay() {
-            console.log('canPlay================>', this.lock)
+            console.log('this.lock================>', this.lock)
             if(this.lock) return;
             const audio = this.$refs.audio;
+            console.log('audio================>', audio, audio.readyState)
             if(audio.readyState === 4) {
                 audio.play();
                 this.$store.commit("setAudio", audio);
@@ -186,6 +187,7 @@ export default {
             let curPlayIndex = this.curPlayIndex;
             curPlayIndex++;
             this.$store.commit("setCurPlayIndex", curPlayIndex);
+            this.$store.commit("setCanPlayed", false)
             this.$store.dispatch("playAudio");
         },
 

@@ -16,11 +16,13 @@
                     <!-- <div class="audio-meta">
                         <h3>{{curPlayAudio.audio_name}}</h3>
                     </div> -->
-                    <div class="lrc-stage">
-                        <div class="lrc-box" ref = "lrcBox" :style = "{transform: 'translateY(-' + translateY + 'px)', color: defaultColor}">
-                            <p :style = "{color: curLrcIndex === index ? activeColor : ''}" :startTime = "lrcObj.startTime" v-for = "(lrcObj, index) in curPlayLrcArr">{{ lrcObj.curLrc }}</p>
+                    <VuePerfectScrollbar class="lyric-scroll-area" :settings="settings">
+                        <div class="lrc-stage">
+                            <div class="lrc-box" ref = "lrcBox" :style = "{transform: 'translateY(-' + translateY + 'px)', color: defaultColor}">
+                                <p :style = "{color: curLrcIndex === index ? activeColor : ''}" :startTime = "lrcObj.startTime" v-for = "(lrcObj, index) in curPlayLrcArr">{{ lrcObj.curLrc }}</p>
+                            </div>
                         </div>
-                    </div>
+                    </VuePerfectScrollbar>
                 </div>
             </div>
         </div>
@@ -28,7 +30,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+
 import CollapseIcon from '../../static/img/collapse.svg';
 import LoveIcon from "../../static/img/icon_love.svg";
 
@@ -38,6 +42,7 @@ export default {
     components: {
         CollapseIcon,
         LoveIcon,
+        VuePerfectScrollbar,
     },
 
     data () {
@@ -82,19 +87,25 @@ export default {
                     activeColor: "#d200d2",
                     currentImgSrc: "static/img/current-type5.png"
                 }
-            ]
+            ],
+            settings: {
+                maxScrollbarLength: 60
+            }
         }
     },
 
     computed: {
         ...mapState([
-            'audio',
             'curPlayAudio',
+            'canPlayed',
+            'curLrcIndexFlag',
             'curPlayImgSrc',
             'curPlayLrcArr',
             'showAudioDetail'
         ]),
-
+        ...mapGetters([
+            'audio'
+        ])
     },
 
     created () {
@@ -102,15 +113,21 @@ export default {
     },
 
     watch: {
+        
+        curLrcIndexFlag(next, old) {
+            if (next === 0) {
+                this.translateY = 0
+                this.rollTimer = setTimeout(() => {
+                    this.lrcRoll();
+                }, 100);
+            }
+        },
         paused(newPaused, oldPaused) {
             console.log('>>> paused', newPaused);
             if(newPaused) {
                 this.clearTimer();
             }
             else {
-                this.progressTimer = setTimeout(() => {
-                    this.progressGo();
-                }, 1000);
                 this.rollTimer = setTimeout(() => {
                     this.lrcRoll();
                 }, 100);
@@ -119,15 +136,13 @@ export default {
         curLrcIndex(newCurLrcIndex, oldCurLrcIndex) {
             console.log('>>> curLrcIndex', newCurLrcIndex);
             this.$store.commit('setCurLrcIndex', newCurLrcIndex);
-            // if(!this.showDetail) return;
 
             const lrcBox = this.$refs.lrcBox;
             const lrcBoxHeight = lrcBox.offsetHeight;
             const childHeight = lrcBox.firstChild.offsetHeight;
-            console.log('lrcBoxHeight, childHeight================>', lrcBoxHeight, childHeight)
             const curShowNum = Math.floor(lrcBoxHeight / childHeight);
-            if(newCurLrcIndex >= curShowNum - 1) {
-                this.translateY = childHeight * (newCurLrcIndex - curShowNum + 1) + childHeight * 5;
+            if(newCurLrcIndex >= Math.floor(curShowNum / 2)) {
+                this.translateY = childHeight * (newCurLrcIndex - Math.floor(curShowNum / 2));
             }
             else {
                 this.translateY = 0;
@@ -137,7 +152,6 @@ export default {
 
     methods: {
         initLyric () {
-            // this.audio.currentTime = 0;
             this.endTime = parseInt(this.audio.duration);
 
             this.$store.commit('setLrcColor', {
@@ -187,6 +201,11 @@ export default {
             }
         },
 
+        // 清除定时器
+        clearTimer() {
+            clearTimeout(this.rollTimer);
+        },
+
     },
 }
 </script>
@@ -206,6 +225,7 @@ export default {
             position: absolute;
             top: 10px;
             right: 10px;
+            z-index: 100;
 
             .icon-collapse {
                 width: 20px;
@@ -214,14 +234,15 @@ export default {
         }
 
         .audio-detail-content {
+            position: relative;
             display: flex;
             flex-direction: row;
+            justify-content: center;
+            padding: 50px 50px 0 50px;
 
             .content-btns {
-                display: flex;
-                flex-direction: column;
-                padding: 50px 50px 0 50px;
-
+                position: absolute;
+                left: 50px;
                 .cover-img {
                     width: 150px;
                     height: 150px;
@@ -231,10 +252,15 @@ export default {
             }
 
             .content-infos {
-                padding: 50px 50px 0 150px;
+                .lyric-scroll-area {
+                    position: relative;
+                    width: 500px;
+                    height: calc(@musicBoxHeight - @musicToolBarHeight - 50px);
+                }
+
                 .lrc-stage {
-                    overflow: hidden;
-                    height: calc(720px - @musicToolBarHeight);
+                    // overflow: hidden;
+                    height: calc(@musicBoxHeight - @musicToolBarHeight - 50px);
                     // height: 400px;
                     .lrc-box {
                         color: #fff;
