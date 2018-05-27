@@ -3,7 +3,7 @@
         <div v-if="showAlbumDetail" class="album-detail" >
         <!-- <div class="album-detail" > -->
             <img class="cover-img" :src="curAlbumImgSrc" alt="">
-            <span @click="closeAlbumDetail">
+            <span @click="closeAlbumDetail" class="icon-close-wrap">
                 <CloseIcon class="icon icon-close" />
             </span>
             <div class="album-songs">
@@ -70,6 +70,7 @@ export default {
         height: 100%;
         background-color: #ffffff;
 
+        
         .cover-img {
             position: absolute;
             top: 0;
@@ -79,12 +80,20 @@ export default {
             object-fit: cover;
         }
 
-        .icon-close {
+        .icon-close-wrap {
             position: absolute;
             cursor: pointer;
             z-index: 100;
             right: 20px;
             top: 20px;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            border-radius: 2px;
+            background: rgba(0, 0, 0, .1);
+        }
+
+        .icon-close {
             width: 24px;
             height: 24px;
         }
