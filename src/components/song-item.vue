@@ -1,5 +1,5 @@
 <template>
-    <div :class="songsItemClass" @click="play(index)" @mouseover="toggleIsHover" @mouseout="toggleIsHover">
+    <div :class="songsItemClass" @click="play(index)" @mouseover.stop.prevent="toggleIsHover" @mouseout.stop.prevent="toggleIsHover">
         <div class="song-item song-info">
             <img :src="`http://${song.img.url}`" alt="">
             <span>{{ song.audio_name }}</span>

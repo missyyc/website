@@ -27,5 +27,6 @@ module.exports = {
         'indent': ['error', 4],
         'no-useless-return': 0,
         'space-before-function-paren': 0,
+        "camelcase": 0
     }
 }

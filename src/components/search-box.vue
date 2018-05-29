@@ -69,8 +69,10 @@ export default {
         },
 
         playAudio (curAudio) {
+            // console.log('curAudio================>', curAudio)
             const index = this.willPlayList.findIndex(audio => audio._id === curAudio._id)
-            if (index) {
+            console.log('index================>', index)
+            if (index >= 0) {
                 this.$store.commit("setCurPlayAudio", index)
             } else {
                 const newAudioList = this.willPlayList.push(curAudio)
@@ -98,8 +100,8 @@ export default {
     }
     .search-list {
         position: absolute;
+        z-index: 100;
         top: 24px;
-
         width: 200px;
         box-shadow: 0 2px 20px -6px #777;
         border-radius: 2px;

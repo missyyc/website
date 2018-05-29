@@ -14,7 +14,10 @@ export default {
         commit('setCurPlayAudio', getters.curPlayIndex)
 
         const curPlayAudio = getters.curPlayAudio;
-        const { source: {url: sourceUrl}, img: {url: imgUrl} } = curPlayAudio
+        const { audio_name, cover_singer, source: {url: sourceUrl}, img: {url: imgUrl} } = curPlayAudio
+
+        // 设置网页的title
+        document.title = `${audio_name}-${cover_singer}`
 
         commit('setCanPlayed', true)
         commit("setCurPlayAudioSrc", `http://${sourceUrl}`)
@@ -42,7 +45,7 @@ export default {
             playedAudiosIds = []
         }
         const index = playedAudiosIds.findIndex(_id => _id === audioId)
-        
+
         if (index >= 0) {
             return
         } else {
@@ -63,7 +66,7 @@ export default {
             lovedAudiosIds = []
         }
         const index = lovedAudiosIds.findIndex(_id => _id === audioId)
-        
+
         if (index >= 0) {
             return
         } else {

@@ -10,7 +10,6 @@ export default {
         return state.curPlayIndex
     },
     songsList: state=> {
-        console.log('state.audioList================>', state.audioList)
         return state.audioList.filter(audio => audio.type === 'song')
     },  
     liveAudiosList: state=> {

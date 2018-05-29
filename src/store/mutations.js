@@ -59,7 +59,9 @@ export default {
         state.curPlayIndex = curPlayIndex;
     },
     setCurPlayAudio(state, curPlayIndex) {
+        console.log('curPlayIndex================>', curPlayIndex)
         const curPlayAudio = state.willPlayList[curPlayIndex]
+        console.log('curPlayAudio================>', curPlayAudio)
         state.curPlayAudio = curPlayAudio
 
         const listTotal = state.willPlayList.length;
