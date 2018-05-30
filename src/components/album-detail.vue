@@ -6,31 +6,39 @@
             <span @click="closeAlbumDetail" class="icon-close-wrap">
                 <CloseIcon class="icon icon-close" />
             </span>
-            <div class="album-songs">
-                <song-item
-                    v-for="(song, index) in curAlbum.songs"
-                    :key="song._id"
-                    :song="song"
-                    :index="index"
-                ></song-item>
-            </div>
+                <div class="album-songs">
+            <VuePerfectScrollbar class="scroll-area" :settings="settings">
+                    <song-item
+                        v-for="(song, index) in curAlbum.songs"
+                        :key="song._id"
+                        :song="song"
+                        :index="index"
+                    ></song-item>
+            </VuePerfectScrollbar>
+                </div>
         </div>
     </transition>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import SongItem from './song-item.vue';
 import CloseIcon from "../../static/img/close.svg";
 
 export default {
     name: 'album-detail',
     data () {
-        return {}
+        return {
+            settings: {
+                maxScrollbarLength: 60
+            }
+        }
     },
     components: {
         SongItem,
-        CloseIcon
+        CloseIcon,
+        VuePerfectScrollbar,
     },
     computed: {
         ...mapState([
@@ -70,6 +78,7 @@ export default {
         height: 100%;
         background-color: #ffffff;
 
+         
         
         .cover-img {
             position: absolute;
@@ -99,6 +108,7 @@ export default {
         }
 
         .album-songs {
+
             flex-flow: nowrap; // 防止高度被撑开
             z-index: 20;
             // margin-top: 300px;
@@ -107,6 +117,12 @@ export default {
             width: 500px;
             min-height: 0;
             border-radius: @borderRadius;
+
+            .scroll-area {
+                position: relative;
+                width: 100%;
+                height: 400px;
+            }
         }
     }
 </style>
