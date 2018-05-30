@@ -2,7 +2,7 @@ import api from '../api';
 import * as storage from '../utils/storage'
 
 export default {
-    playAudio({ commit, getters }) {
+    playAudio({ commit, dispatch, getters }) {
         commit("setIsPlayed", false);
         commit("setCurPlayAudioSrc", "");
         commit("setCurPlayImgSrc", "");
@@ -27,7 +27,8 @@ export default {
             const { lyrics } = curPlayAudio.lyrics
             commit("setCurPlayLrcArr", lyrics);
         }
-        commit("setCanPlayed", true);
+        commit('setCanPlayed', true);
+        dispatch('addPlayCount')
     },
 
     async setToken({commit, getters}) {

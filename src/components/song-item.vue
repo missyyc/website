@@ -71,7 +71,7 @@ export default {
             this.$store.commit("setCurPlayAudio", CurPlayIndex)
             this.$store.dispatch("playAudio")
             // this.$store.commit('addCurAudioPlayCount')
-            this.$store.dispatch("addPlayCount")
+            // this.$store.dispatch("addPlayCount")
         },
 
         addLoveTimes (audio) {
