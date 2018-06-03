@@ -109,6 +109,11 @@ export default {
     .song-info {
         width: 150px;
         span {
+            display: inline-block;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
             margin-left: 5px;
         }
         img, span {
