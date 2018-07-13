@@ -44,14 +44,29 @@
                     </span>
                 </div>
 
-                <div class="time-wrap">
-                    <div class="start-time">{{ curPlayTime | formatDate }}</div>
-                    <div class="progress-wrap">
-                        <div class="progress-bar" @click = "updateProgress" ref = "progressBar"></div>
-                        <div class="progress" :style = "{width: progress + '%'}"></div>
-                        <div class="progress-dot" ref = "progressDot" :style = "{'margin-left': progress + '%'}"></div>
+                <div class="audio-ctls">
+                    <div class="time-wrap">
+                        <div class="start-time">{{ curPlayTime | formatDate }}</div>
+                        <div class="progress-wrap">
+                            <div class="progress-bar" @click = "updateProgress" ref = "progressBar"></div>
+                            <div class="progress" :style = "{width: progress + '%'}"></div>
+                            <div class="progress-dot" ref = "progressDot" :style = "{'margin-left': progress + '%'}"></div>
+                        </div>
+                        <div class="end-time">{{ endTime | formatDate }}</div>
                     </div>
-                    <div class="end-time">{{ endTime | formatDate }}</div>
+
+                    <!-- <div class="volume-ctls">
+                        <span class="btn volume-btn">
+                            <VolumeXIcon />
+                        </span>
+                        <div class="volume-ctl-wrap" @mousedown="startDrag" @mousemove="updateVolume" @mouseout="stopDrag">
+                            <div class="volume-bar" ref="volumeBar"></div>
+                            <div class="volume-progress" :style= "{width: volumeLen + '%'}"></div>
+                            <div class="volume-dot"  ref="volumeDot" :style="{'margin-left': volumeLen + '%'}"></div>
+                        </div>
+                    </div> -->
+
+                    <slider width="100px"></slider>
                 </div>
             </div>
         </div>
@@ -69,6 +84,12 @@ import MusicStopIcon from '../../static/img/music_stop.svg';
 import MusicPreviousIcon from '../../static/img/music_previous.svg';
 import MusicNextIcon from '../../static/img/music_next.svg';
 import ExpandIcon from '../../static/img/expand.svg';
+import VolumeXIcon from '../../static/img/volume-x.svg';
+import Volume1Icon from '../../static/img/volume-1.svg';
+import Volume2Icon from '../../static/img/volume-2.svg';
+import VolumeIcon from '../../static/img/volume.svg';
+
+import Slider from './slider.vue';
 
 export default {
     name: 'music-toolbar',
@@ -80,15 +101,22 @@ export default {
         MusicStopIcon,
         MusicPreviousIcon,
         MusicNextIcon,
-        ExpandIcon
+        ExpandIcon,
+        VolumeXIcon,
+        Volume1Icon,
+        Volume2Icon,
+        VolumeIcon,
+        Slider,
     },
     data () {
         return {
             curPlayTime: 0,
             endTime: 0,
             progress: 0,
+            volume: 0.5,
             progressSpeed: 0,
             progressTimer: null,
+            dragging: false,
         }
     },
     computed: {
@@ -108,6 +136,7 @@ export default {
         ...mapGetters([
             "listTotal"
         ]),
+        volumeLen () {}
     },
 
     created () {
@@ -259,6 +288,30 @@ export default {
 
             this.$store.commit("setLock", true);
         },
+
+        startDrag () {
+            this.dragging = true
+        },
+
+        stopDrag () {
+            this.dragging = false
+        },
+
+        // 更新音量
+        updateVolume (e) {
+            if (this.dragging) {
+                const offsetX = e.offsetX
+                console.log('offsetX================>', offsetX)
+                const targetWidth = this.$refs.volumeBar.offsetWidth
+                const volume = (offsetX / targetWidth).toFixed(2)
+                const volumeLen = Number((offsetX / targetWidth * 100).toFixed(2))
+                console.log('volume================>', volume)
+                this.volumeLen = volumeLen
+                // this.$store.commit("setVolume", volume)
+                this.$refs.audio.volume = volume
+            }
+        },
+
         // 切换状态 play or paused
         togglePlayState () {
             this.$store.commit("setPaused");
@@ -383,47 +436,96 @@ export default {
                 }
             }
     
-    
-             .time-wrap {
-                width: 400px;
-                color: #99A6BD;
+
+            .audio-ctls {
                 display: flex;
-                justify-content: flex-end;
-                align-items: center;
-                .progress-wrap {
-                    // flex: 1;
-                    cursor: pointer;
-                    width: 200px;
-                    height: 4px;
-                    border-radius: 4px;
-                    // overflow: hidden;
-                    position: relative;
-                    margin: 0 8px;
-                    background-color: #6c6b70;
-                    .progress-bar {	
-                        // width: 100%;
-                        width: 200px;
-                        height: 100%;
-                        position: relative;
-                        z-index: 1;
-                    }
-                    .progress {
-                        left: 0;
-                        top: 0;
-                        height: 100%;
-                        border-radius: 100% 0 0 100%;
-                        position: absolute;
-                        background-color: #3195fd
-                    }
-                    .progress-dot {
+                flex-direction: row;
+                width: 400px;
+
+                .time-wrap {
+                    width: 300px;
+                    color: #99A6BD;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    .progress-wrap {
+                        // flex: 1;
                         cursor: pointer;
-                        top: 50%;
-                        position: absolute;
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 100%;
-                        background-color: #3195fd;
-                        transform: translate3d(0, -50%, 0);
+                        width: 200px;
+                        height: 4px;
+                        border-radius: 4px;
+                        // overflow: hidden;
+                        position: relative;
+                        margin: 0 8px;
+                        background-color: #6c6b70;
+                        .progress-bar {	
+                            // width: 100%;
+                            width: 200px;
+                            height: 100%;
+                            position: relative;
+                            z-index: 1;
+                        }
+                        .progress {
+                            left: 0;
+                            top: 0;
+                            height: 100%;
+                            border-radius: 100% 0 0 100%;
+                            position: absolute;
+                            background-color: #3195fd
+                        }
+                        .progress-dot {
+                            cursor: pointer;
+                            top: 50%;
+                            position: absolute;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 100%;
+                            background-color: #3195fd;
+                            transform: translate3d(0, -50%, 0);
+                        }
+                    }
+                }
+
+                .volume-ctls {
+                    margin-left: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center; 
+                    .volume-btn {
+                        margin-top: 4px;
+                        margin-right: 4px;
+                    }               
+                    .volume-ctl-wrap {
+                        position: relative;
+                        width: 80px;
+                        height: 4px;
+                        border-radius: 4px;
+                        background-color: #6c6b70;
+
+                        .volume-bar {	
+                            cursor: pointer;
+                            width: 100%;
+                            height: 100%;
+                        }
+                        .volume-progress {
+                            cursor: pointer;
+                            left: 0;
+                            top: 0;
+                            height: 100%;
+                            border-radius: 100% 0 0 100%;
+                            position: absolute;
+                            background-color: #3195fd
+                        }
+                        .volume-dot {
+                            cursor: pointer;
+                            top: 50%;
+                            position: absolute;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 100%;
+                            background-color: #3195fd;
+                            transform: translate3d(0, -50%, 0);
+                        }
                     }
                 }
             }

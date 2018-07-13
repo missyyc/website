@@ -20,6 +20,9 @@ export default {
     setAudio(state, audio) {
         state.audio = audio;
     },
+    setVolume(state, volume) {
+        state.volume = volume;
+    },
     setIsPlayed(state, isPlayed) {
         state.isPlayed = isPlayed;
     },

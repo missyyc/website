@@ -12,7 +12,6 @@ const getToken = () => {
 }
 
 export default {
-    
     // ===============yyc api==================
     async fetchAudioList(type) {
         try {
@@ -32,6 +31,14 @@ export default {
         try {
             return await axios.get(`${apiUrl}/albums/list`)
         } catch (error) {
+            return error
+        }
+    },
+
+    async fetchDailyAlbumList() {
+        try {
+            return await axios.get(`${apiUrl}/albums/list?tag='每日合辑'`)
+        } catch (error)  {
             return error
         }
     },

@@ -2,7 +2,8 @@
     <!-- <div class="stage" ref="stage" :style="{'background-image': `url(${backgroundImage})`}"> -->
     <div class="stage" ref="stage">
         <music-box></music-box>
-        <span class="copyright">@copyright 牛逼的二群孕育出的痒痒虫科技部！</span>
+        <!-- <span class="copyright">@copyright 牛逼的二群孕育出的痒痒虫科技部！</span> -->
+        <span class="copyright">苏ICP备18037414号</span>
     </div>
 </template>
 
